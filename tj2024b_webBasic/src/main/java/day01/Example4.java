@@ -8,16 +8,16 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Servlet implementation class Task2
+ * Servlet implementation class Example4
  */
-@WebServlet("/day01/Task2")
-public class Task2 extends HttpServlet {
+@WebServlet("/day01/Example4")
+public class Example4 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Task2() {
+    public Example4() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,7 +28,6 @@ public class Task2 extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
-		System.out.println("방법2로 만든 서블릿");
 	}
 
 }
