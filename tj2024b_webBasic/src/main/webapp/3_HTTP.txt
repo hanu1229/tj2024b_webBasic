@@ -1,0 +1,48 @@
+[HTTP] HyperText Transfer Protocol
+	- 문자 이동 프로토콜 : 객체지향이 아니므로 문자 자료만 통신이 가능하다
+	
+	1. 정의 : 웹에서 사용하는 문자 통신 규약
+	
+	2. 특징
+		1. 무상태 프로토콜 (상태가 없고 저장기능이 없다)
+		2. 독립적, 이전요청과 다음 요청은 다르다
+		3. TCP/IP 프로토콜에 종속되어 동작 PORT 80/8080을 사용한다
+		
+	3. 주소체계
+		- URL : http://ip:port/자료위치
+			Ex) https://nid.naver.com/nidlogin.login : 네이버의 login(html)이 위치한 주소
+			
+		- URI : http://ip:prot/자료위치?매개변수1=값1&매개변수2=값2
+			- 각종 자료들의 유일한 이름이나 위치를 표시하는 규약 (URL + 매개변수)
+			Ex) https://finance.naver.com/item/main.naver?code=005930
+			
+	4. HTTP Header (HTTP 통신 정보)
+		1. HTTP *METHOD*		: HTTP를 이용한 통신을 요청할때 분류하는 규칙
+		2. HTTP *BODY*			: HTTP를 이용하여 데이터의 내용/본문을 보낼때 사용되는 규칙
+		3. HTTP Content-Type	: HTTP를 이용한 데이터의 타입 정보
+		4. HTTP HOST			: HTTP를 이용한 통신을 요청하는 서버의 URL 주소
+		
+	5. HTTP METHOD 종류		CRUD		HTTP기반의 연결(매핑)구축(RESTFUL)	HttpServlet
+		1. get				Read		get매핑							doGet()
+		2. post				Create		post매핑							doPost()
+		3. put				Update		put매핑							doPut()
+		4. delete			Delete		delete매핑						doDelete()
+		
+	6. HTTP 사용처
+		1. 브라우저(크롬/엣지/사파리 등등) 상단에 HTTP를 입력한다.
+			- http get method만 지원
+			
+		2. Talend API(restful test)
+			- 크롬에서 구글에 talen api를 검색 --> 추가 클릭
+			- 크롬 주소 입력창 오른쪽 끝에 퍼즐 모양을 누르면 확장 프로그램을 실행할 수 있다.
+	
+	7. HTTP가 데이터를 보내는 방법
+		1. 쿼리스트링
+			- 정의 : URL 주소에서 ?로 구분하여 매개변수명=값을 표시한다. 여러개 일경우 &를 사용
+				Ex) https://finance.naver/com/item/main.naver?code=005930
+					(URL) https://finance.naver/com/item/main.naver
+					(쿼리스트링) ?code=005930
+						매개변수명 : code
+						매개변수값 : 005930
+		
+		2. HTTP header(정보) body
