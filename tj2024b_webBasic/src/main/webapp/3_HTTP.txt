@@ -35,10 +35,13 @@
 		2. Talend API(restful test)
 			- 크롬에서 구글에 talen api를 검색 --> 추가 클릭
 			- 크롬 주소 입력창 오른쪽 끝에 퍼즐 모양을 누르면 확장 프로그램을 실행할 수 있다.
-	
+			
+		3. (JS) Fetch, Ajax(JQuery), Axios(React) 등등 : JS가 제공하는 HTML 통신 라이브러리
+		
 	7. HTTP가 데이터를 보내는 방법
 		1. 쿼리스트링
 			- 정의 : URL 주소에서 ?로 구분하여 매개변수명=값을 표시한다. 여러개 일경우 &를 사용
+			- 요청 : get, post, put, delete 메소드에서 사용 가능(보안상 좋지 않음)
 				Ex) https://finance.naver/com/item/main.naver?code=005930
 					(URL) https://finance.naver/com/item/main.naver
 					(쿼리스트링) ?code=005930
@@ -46,3 +49,10 @@
 						매개변수값 : 005930
 		
 		2. HTTP header(정보) body
+			- 정의 : HTTP 요청과 응답 내용 자체를 전달하는 역할
+			- 요청 : post, put 메소드에서 사용을 권장 (쿼리스트링 보다는 보안이 좋다)
+				- content-type
+			- 응답 : HTTP의 상태 메시지(200 : 성공, 4XX : 프로토콜 문제, 5XX : 서버 문제)
+				- content-type
+			
+			
