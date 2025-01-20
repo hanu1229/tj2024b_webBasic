@@ -12,7 +12,7 @@ public class DataDto {
 	
 	// getter
 	public String getData1() { return this.data1; }
-	public int GetData2() { return this.data2; }
+	public int getData2() { return this.data2; }
 	
 	// setter
 	public void setData1(String data1) { this.data1 = data1; }

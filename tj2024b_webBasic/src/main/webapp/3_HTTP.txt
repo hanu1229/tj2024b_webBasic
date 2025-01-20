@@ -61,9 +61,9 @@
 		- 주의 : HTTP는 기본적으로 문자열자료만 전달이 가능하다.
 		- 타입 종류
 			- text/html							: html문서를 주고 받을때 사용
+			- text/plain						: 일반 텍스트 데이터를 주고 받을때 사용
 			- application/json					: json 데이터를 주고 받을때 사용
 			- application/xml					: xml 데이터를 주고 받을때 사용
-			- application/plain					: 일반 텍스트 데이터를 주고 받을때 사용
 			- application/x-www-form-urlencoded	: 폼 형식의 데이터를 주고 받을때 사용, html의 <form> 마크업
 			- multipart/form-data				: 첨부파일 업로드할때 사용, 대용량 데이터(byte로 전송)
 			
