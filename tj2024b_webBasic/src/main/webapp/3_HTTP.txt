@@ -54,5 +54,36 @@
 				- content-type
 			- 응답 : HTTP의 상태 메시지(200 : 성공, 4XX : 프로토콜 문제, 5XX : 서버 문제)
 				- content-type
+	
+	8. HTTP Content-Type
+		- 정의 : HTTP의 요청과 응답의 본문 데이터 형식을 나타내는 HTTP header 정보 중 하나.
+		- 목적 : 서버와 클라이언트가 데이터를 주고 받는데 있어서 형식을 명시/표시를 한다.
+		- 주의 : HTTP는 기본적으로 문자열자료만 전달이 가능하다.
+		- 타입 종류
+			- text/html							: html문서를 주고 받을때 사용
+			- application/json					: json 데이터를 주고 받을때 사용
+			- application/xml					: xml 데이터를 주고 받을때 사용
+			- application/plain					: 일반 텍스트 데이터를 주고 받을때 사용
+			- application/x-www-form-urlencoded	: 폼 형식의 데이터를 주고 받을때 사용, html의 <form> 마크업
+			- multipart/form-data				: 첨부파일 업로드할때 사용, 대용량 데이터(byte로 전송)
 			
+	* 주 웹/앱 개발의 통신 구조 / 서로 다른 언어들간의 주고 받는 방법
+		※ 타입 변환 : 서로 다른 언어들간 통신을 할때 타입변환이 필요한 이유는 "서로 다른 타입들을 지원하기 때문"이다.
+		- HTML ---- document.querySelect() ----> JS ---- HTTP 통신 ----> JAVA(Servlet) ---- JDBC ----> DB
+						문자타입							  문자타입						  문자타입
+						
+		- HTML과 JSON 자료들 이동
+			- HTML --> JS : document.querySelector().value
+			- JS --> HTML : document.querySelector().innerHTML
+			※ paseInt()등 타입변환이 필요했다.
 			
+		- JS와 JAVA 자료들 이동
+			- JS --> JAVA : HTTP를 이용한 요청(request)
+			- JAVA --> JS : HTTP를 이용한 응답(response)
+			※ Integer.parseInt()등 타입변환이 필요했다.
+			※ 두 언어간에 웹에서 자주 사용되는 통신 데이터 타입 : SCV, XML, JSON
+				요즘은 JSON을 사용함으로 application/json
+			※ JSON(JavaScript Object Notation) : JSsms JSON 타입을 알지만 JAVA언어는 JSON 타입을 모른다
+			
+		- Java와 DB 자료들 이동
+			- Dao(JDBC)
