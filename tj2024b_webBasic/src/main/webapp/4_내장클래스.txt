@@ -1,10 +1,24 @@
-
 Servlet이 제공하는 클래스들
+
 [HttpServletRequest]
 	1. 웹 브라우저의 HTTP 요청 정보를 저장한다
 	2. 주요 메소드
-		- .getParameter("매개변수명");		: 요청 매개변수명의 값을 전달 받는다.
-										: 요청 매개변수명의 값이 없으면 null을 반환한다.
+		- req.getParameter("매개변수명");		: 요청 매개변수명의 값을 전달 받는다.
+											: 요청 매개변수명의 값이 없으면 null을 반환한다.
+		- req.getReader()					: HTTP header body(본문)을 읽어들여 객체로 반환하는 함수
+			- req.getReader().readLine()	: body(본문) 한 줄을 반환하는 함수
+			
+		※ body(본문) Content-Type : application/json
+			- JSON 타입 ----> DTO 타입으로 변환
+			ObjectMapper mapper = new ObjectMapper();
+			mapper.readValue(req.getReader(), DTO클래스명.class);
 	
 [HttpServletResponse]
 	- 웹 브라우저의 HTTP 요청에 대한 *응답* 정보를 저장한다.
+	- 주요 메소드
+		- resp.getWriter().print("보낼자료")		: HTTP header body(본문)로 응답을 보내는 함수
+		- resp.setContentType("content-type")	: HTTP header body(본문) 자료의 타입을 설정/지정하는 함수
+	※ body(본문) content-type : application/json
+		DTO 타입 ----> JSON타입으로 변환
+		ObjcectMapper mapper = new ObjectMapper();
+		String result = mapper.writeValueAsString(변환할자료);

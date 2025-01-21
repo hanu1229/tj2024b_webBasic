@@ -16,7 +16,7 @@
 			- 각종 자료들의 유일한 이름이나 위치를 표시하는 규약 (URL + 매개변수)
 			Ex) https://finance.naver.com/item/main.naver?code=005930
 			
-	4. HTTP Header (HTTP 통신 정보)
+	4. HTTP Header (HTTP 통신 정보 / 내용이 들어있는 곳)
 		1. HTTP *METHOD*		: HTTP를 이용한 통신을 요청할때 분류하는 규칙
 		2. HTTP *BODY*			: HTTP를 이용하여 데이터의 내용/본문을 보낼때 사용되는 규칙
 		3. HTTP Content-Type	: HTTP를 이용한 데이터의 타입 정보

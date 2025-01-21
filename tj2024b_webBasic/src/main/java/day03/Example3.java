@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/day3/example3")
+@WebServlet("/day03/example3")
 public class Example3 extends HttpServlet {
 	
 	/**
