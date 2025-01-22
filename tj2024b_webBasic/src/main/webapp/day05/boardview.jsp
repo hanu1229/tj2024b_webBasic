@@ -11,16 +11,16 @@
 		<h1>게시물 상세 페이지</h1>
 		<div>
 			<div>게시물번호 : <span id ="number"></span></div>
-			<div>제목 : <input id = "title" type = "text"/></div>
+			<div>제목 : <span id = "title"></span></div>
 			<span> 작성자 : <span id = "writer"></span></span>
 			<span> 조회수 : <span id = "view"></span></span>
 			<span> 작성일자 : </span><span id = "date"></span><br/>
 			<div>내용 : </div>
-			<textarea id = "content" rows="10" cols="50"></textarea>
+			<textarea id = "content" rows="10" cols="50" readonly></textarea>
 			<br/><br/>
 			<div>
-				<button onclick = "_update()">수정</button>
-				<button onclick = "">삭제</button>
+				<button onclick = "updatePage()">수정</button>
+				<button onclick = "_delete()">삭제</button>
 				<button onclick = "location.href = '/tj2024b_webBasic/day05/boardservice.jsp'">뒤로가기</button>
 			</div>
 		</div>

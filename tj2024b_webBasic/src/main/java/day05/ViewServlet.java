@@ -22,7 +22,7 @@ public class ViewServlet extends HttpServlet {
 		BoardDto boardDto = Dao.getInstance().find(bno);
 		ObjectMapper mapper = new ObjectMapper();
 		String result = mapper.writeValueAsString(boardDto);
-		System.out.println("result : " + result);
+		System.out.println(">> result : " + result);
 		resp.setContentType("application/json");
 		resp.getWriter().print(result);
 		

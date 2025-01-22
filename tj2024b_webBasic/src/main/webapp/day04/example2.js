@@ -1,3 +1,4 @@
+
 // [1] 람다식 함수 정의
 const func1 = () => {
 	console.log(`func1 execute`);

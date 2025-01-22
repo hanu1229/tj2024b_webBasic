@@ -23,6 +23,7 @@ public class BoardServlet extends HttpServlet {
 		ObjectMapper mapper = new ObjectMapper();
 		BoardDto boardDto = mapper.readValue(req.getReader(), BoardDto.class);
 		boolean result = Dao.getInstance().create(boardDto);
+		System.out.println(">> result : " + result);
 		resp.setContentType("application/json");
 		resp.getWriter().print(result);
 		
@@ -35,10 +36,10 @@ public class BoardServlet extends HttpServlet {
 		System.out.println(">> BoardServlet doGet 시작");
 		
 		ArrayList<BoardDto> result = Dao.getInstance().findAll();
-		System.out.println(result);
+		System.out.println(">> result : " + result);
 		ObjectMapper mapper = new ObjectMapper();
 		String jsonResult = mapper.writeValueAsString(result);
-		System.out.println(jsonResult);
+		System.out.println("jsonResult : " + jsonResult);
 		resp.setContentType("application/json");
 		resp.getWriter().print(jsonResult);
 		
@@ -53,6 +54,7 @@ public class BoardServlet extends HttpServlet {
 		ObjectMapper mapper = new ObjectMapper();
 		BoardDto boardDto = mapper.readValue(req.getReader(), BoardDto.class);
 		boolean result = Dao.getInstance().update(boardDto);
+		System.out.println(">> result : " + result);
 		resp.setContentType("application/json");
 		resp.getWriter().print(result);
 		
@@ -66,6 +68,7 @@ public class BoardServlet extends HttpServlet {
 		
 		int bno = Integer.parseInt(req.getParameter("bno"));
 		boolean result = Dao.getInstance().delete(bno);
+		System.out.println(">> result : " + result);
 		resp.setContentType("application/json");
 		resp.getWriter().print(result);
 		
