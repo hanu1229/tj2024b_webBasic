@@ -60,7 +60,7 @@ let _delete = () => {
 		let option = {method : "GET"};
 		fetch(`/tj2024b_webBasic/day05/board?bno=${bno}`, option)
 		.then(response => response.json())
-		.then(data => {
+		.then(data => {  
 			if(data == true) {
 				alert("삭제 성공");
 				location.href = '/tj2024b_webBasic/day05/boardservice.jsp';
