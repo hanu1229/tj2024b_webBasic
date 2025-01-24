@@ -83,7 +83,7 @@
 			※ Integer.parseInt()등 타입변환이 필요했다.
 			※ 두 언어간에 웹에서 자주 사용되는 통신 데이터 타입 : SCV, XML, JSON
 				요즘은 JSON을 사용함으로 application/json
-			※ JSON(JavaScript Object Notation) : JSsms JSON 타입을 알지만 JAVA언어는 JSON 타입을 모른다
+			※ JSON(JavaScript Object Notation) : JS는 JSON 타입을 알지만 JAVA언어는 JSON 타입을 모른다
 			
 		- Java와 DB 자료들 이동
 			- Dao(JDBC)
