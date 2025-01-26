@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public class ParkingDao {
 	private Connection conn;
@@ -28,6 +29,26 @@ public class ParkingDao {
 	}
 	public static ParkingDao getInstance() { return instance; }
 	// singleton end
+	
+	/**
+	 * 주차자리 화면 구현 
+	*/
+	public ArrayList<ParkingDto> parkingView() {
+		ArrayList<ParkingDto> result = new ArrayList<>();
+		try {
+			String sql = "select * from parking";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while( rs.next() ) {
+				ParkingDto parkingDto = new ParkingDto();
+				parkingDto.setPno(rs.getInt("pno"));
+				parkingDto.setCar(rs.getString("car"));
+				parkingDto.setTime(rs.getString("time"));
+				result.add(parkingDto);
+			} // w end
+		}catch( SQLException e ) { System.out.println(e); }
+		return result;
+	} // f end
 	
 	/**
 	 * 입차 SQL문

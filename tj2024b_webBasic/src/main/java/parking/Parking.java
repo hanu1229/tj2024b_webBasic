@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -15,6 +16,18 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/day06/parking")
 public class Parking extends HttpServlet {
+	
+	/**
+	 * 화면 출력 함수 
+	*/
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		ArrayList<ParkingDto> result = ParkingDao.getInstance().parkingView();
+		ObjectMapper mapper = new ObjectMapper();
+		String jsonResult = mapper.writeValueAsString(result);
+		resp.setContentType("application/json");
+		resp.getWriter().print( jsonResult );
+	} // f end
 	
 	/**
 	 * 입차 함수
@@ -72,9 +85,9 @@ public class Parking extends HttpServlet {
 		// 두 LocalDateTime의 차이를 구하는 방법
 		Duration duration = Duration.between(oldTime, newTime);
 		// days : 날짜, hours : 시, minutes : 분, seconds : 초
-		long days = duration.toDays();
-		long hours = duration.toHours() % 24;
-		long minutes = duration.toMinutes() % 60;
+		//long days = duration.toDays();
+		//long hours = duration.toHours() % 24;
+		//long minutes = duration.toMinutes() % 60;
 		//long seconds = duration.toSeconds() % 60;
 		long seconds = duration.toSeconds();
 		int price = (int)(100 * seconds);
