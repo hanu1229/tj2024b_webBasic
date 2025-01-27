@@ -11,6 +11,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 
 @WebServlet("/day08/waiting")
@@ -33,6 +34,8 @@ public class WaitingController extends HttpServlet {
 		if(!result.isEmpty()) {
 			if(result.get("phone") != null) {				
 				dto.add(result);
+				HttpSession session = req.getSession();
+				session.setAttribute("dto", dto);
 				state = true;
 			}
 		}
@@ -43,12 +46,14 @@ public class WaitingController extends HttpServlet {
 	}
 	
 	/** 대기명단 전체 출력 */
-	@Override
+	@Override 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println(">> WaitingController 대기명단 천체 출력(doGet) 실행");
 		
 		ObjectMapper mapper = new ObjectMapper();
-		String jsonResult = mapper.writeValueAsString(dto);
+		HttpSession session = req.getSession();
+		Object object = session.getAttribute("dto");
+		String jsonResult = mapper.writeValueAsString(object);
 		System.out.println(">> jsonResult : " + jsonResult);
 		resp.setContentType("application/json");
 		resp.getWriter().print(jsonResult);
@@ -67,8 +72,11 @@ public class WaitingController extends HttpServlet {
 		System.out.println(">> result : " + result);
 		resp.setContentType("application/json");
 		if(!result.isEmpty()) {
-			for(int index = 0; index < dto.size(); index++) {
-				HashMap<String, Object> temp = dto.get(index);
+			HttpSession session = req.getSession();
+			Object object = session.getAttribute("dto");
+			ArrayList<HashMap<String, Object>> resultDto = (ArrayList<HashMap<String, Object>>)object;
+			for(int index = 0; index < resultDto.size(); index++) {
+				HashMap<String, Object> temp = resultDto.get(index);
 				if(temp.get("wno").equals(result.get("wno"))) {
 					temp.put("people", result.get("people"));
 					System.out.println(">> 변경 후 : " + temp);
@@ -90,8 +98,11 @@ public class WaitingController extends HttpServlet {
 		boolean state = false;
 		String phone = req.getParameter("phone");
 		resp.setContentType("application/json");
-		for(int index = 0; index < dto.size(); index++) {
-			HashMap<String, Object> temp = dto.get(index);
+		HttpSession session = req.getSession();
+		Object object = session.getAttribute("dto");
+		ArrayList<HashMap<String, Object>> result = (ArrayList<HashMap<String, Object>>)object;
+		for(int index = 0; index < result.size(); index++) {
+			HashMap<String, Object> temp = result.get(index);
 			if(temp.get("phone").equals(phone)) {
 				dto.remove(index);
 				state = true;
