@@ -1,0 +1,78 @@
+[롬복]
+	1. 정의 : 반복되는 코드들을 줄여주는 라이브러리
+		* 라이브러리 : 미리 만들어진 클래스/인터페이스(코드들)
+		
+	2. 목적 : DTO, VO, Entity에서 사용된다.
+		- 과거 개발자들이 협엽에 있어서 관례적인 용어를 정의, 기술용어X
+		* DTO(Data Transfer Object) : 데이터 이동 목적으로 사용되는 객체
+		* VO(Value Object) : 데이터 값을 가진 객체 (불변성을 가짐, setter가 없음)
+		* Entity : 개체(실재/본체) 데이터의 실제(주로 DB 테이블/레코드)
+		
+	3. 이클립스에 설치
+		1. lombok jar 다운로드
+			- URL : https://projectlombok.org/download
+			- Download 1.18.36
+			- Project -> src -> main -> webapp -> web-lnf -> lib 폴더에 저장
+			
+		2. 프로젝트 내 lombok 라이브러리 빌드
+			- lombok.jar 오른쪽 클릭 -> [build path] -> [add to build path]
+		
+		3. 롬복 설치
+			- 'lombok.jar' 오른쪽 클릭 -> [show in] -> [Terminal]
+			- Terminal에 java -jar lombok.jar입력
+			- 중복 설치 화면 실행
+				- 적용할 IDE 선택
+				- [install/update] 클릭
+				- install successful 뜨면 잘 적용된 것 -> [quit installer] 클릭
+				
+		4. getter/setter 메소드가 적용이 안될 때
+			- 프로젝트명을 오른쪽 클릭 -> [properties]
+			- 검색란에 anno 입력 -> 사이드바 메뉴 [annotaion processing] 클릭
+			- [Enable project specific settings] 체크 --> [Apply close] 
+				
+	4. @ 롬복 주요 어노테이션
+		1. @NoArgsConstructor	: 디폴트 생성자 코드 생성
+			- @NoArgsConstructor(access = lombok.AccessLevel.PRIVATE) : 디폴트 생성자를 private로 생성
+		2. @AllArgsConstructor	: 모든 매개변수 생성자 코드 생성
+		3. @Getter				: 멤버변수의 Getter 메소드 코드 자동 생성
+			- @Getter
+			  class 클래스명 {}	: 클래스내 모든 멤버변수의 getter 메소드 코드 자동 생성
+			- @Getter
+			  int 변수명;			: 클래스내 특정 멤버변수의 getter 메소드 코드 자동 생성
+		4. @Setter				: 멤버변수의 Setter 메소드 코드 자동 생성
+		5. @ToString			: 멤버변수의 toString 메소드 코드 자동 생성
+		
+	5. 코드 자동 생성 : 프로젝트가 컴파일(실행)될 때 지정한 어노테이션에 따라 코드가 자동으로 생성된다.
+
+
+[@ : 어노테이션]
+	1. 정의 : java 및 라이브러리(프레임워크)에서 코드에 메타데이터를 추가하는 문법
+	2. 목적 : 메타데이터 제공, 코드 간소화, 가독성 향상
+	3. 메타데이터
+		1. 정의 : 코드를 설명하는 데이터
+		2. 목적 : 자바 코드에 추가적인 데이터를 주입/추가할때 사용된다.
+		3. 동작 방식
+			1. 컴파일(실행)
+			2. 리플렉션 : 런타임(실행 중) 클래스를 읽어와서 동적으로 메모리(JVM)에 적재하여 객체를 생성
+				- Class.forName("com.mysql.cj.jdbc.Driver"); : Driver클래스를 읽어드리고 인스턴스를 생성
+	4. 사용법
+		- 코드 위에 @적어 아래 코드를 사용하는 방법을 스티커/설명서/태그/라벨처럼 사용하라는 뜻
+		- 스티커 : 라이브러리 회사들이 만들어준다.
+		- 예시
+			@Getter
+			class 클래스명 {}	
+				
+	5. 어노테이션 종류
+		1. 표준 어노테이션 : Java에서 기본적으로 제공하는 어노테이션
+			- @Override : 부모 클래스의 메소드를 오버라이딩(재정의)할때 사용되는 어노테이션 (생략 가능 --> 이클립스 제공)
+			- @Deprecated : 더 이상 사용하지 않는 코드를 설명할 때 사용되는 어노테이션
+		
+		2. 메타 어노테이션 : 어노테이션 자체에 코드를 정의하거나 동작을 제어할 때 사용되는 어노테이션 / 주로 라이브러리
+			- 각 라이브러리 회사마다 너무 다양해서 적을 수 없다.
+			- 롬복 어노테이션
+			- 스프링 어노테이션
+		
+		
+		
+		
+		
