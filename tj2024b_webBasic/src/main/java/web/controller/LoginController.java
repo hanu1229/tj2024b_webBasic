@@ -43,6 +43,7 @@ public class LoginController extends HttpServlet{
 			// 현재 로그인 성공한 회원번호를 세선 속성에 등록
 			// 추후에 로그인 인증에서 사용될 예정
 			session.setAttribute("loginMno", loginMno);
+			// 세션 객체의 최대 활성화 유지시간/생명주기
 			session.setMaxInactiveInterval(60*10);
 		}
 		// [4] 자료(DTO/자바)타입을 JS(JSON)타입으로 변환
