@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import web.model.dao.MemberDao;
+import web.model.dao.RealMemberDao;
 import web.model.dto.MemberDto;
 
 // [1] HTTP 요청의 header body 자료(JSON)를 자바(DTO)로 받는다.
@@ -34,7 +34,7 @@ public class LoginController extends HttpServlet{
 		// [2] 데이터 유효성 검사
 		// [3] DAO에게 데이터 전달하고 응답 받기
 		// 0이면 로그인 실패, 0초과이면 로그인 성공한 회원번호
-		int loginMno = MemberDao.getInstance().login(memberDto);
+		int loginMno = RealMemberDao.getInstance().login(memberDto);
 		// 만약 로그인을 성공 했다면 세션 처리
 		if(loginMno > 0) {
 			// 톰캣 서버의 저장소/메모리

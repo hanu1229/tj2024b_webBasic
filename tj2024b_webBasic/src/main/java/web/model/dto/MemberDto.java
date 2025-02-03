@@ -22,6 +22,7 @@ public class MemberDto {
 	private String mphone;
 	// 가입일 
 	private String mdate;
-
+	// 프로필 --> 추가
+	private String mimg;
 	
 }

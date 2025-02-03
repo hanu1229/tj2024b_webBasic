@@ -13,6 +13,7 @@ create table member(
     mname varchar(30) not null,
     mphone varchar(13) not null unique,
     mdate datetime default now(),
+    mimg varchar(255) default 'default.jpg',
     constraint primary key(mno)
 );
 insert into member(mid, mpwd, mname, mphone) values ('qwe123', 'a123456', '유재석', '010-3333-3333');

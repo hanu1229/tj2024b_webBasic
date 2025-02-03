@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import web.model.dao.MemberDao;
+import web.model.dao.RealMemberDao;
 import web.model.dto.MemberDto;
 
 //[1] HTTP 요청의 header body 자료(JSON)를 자바(DTO)로 받는다.
@@ -38,6 +39,7 @@ public class InfoController extends HttpServlet {
 			int loginMno = (Integer)object;
 			result = MemberDao.getInstance().myInfo(loginMno);
 		}
+		System.out.println("result : " + result);
 		// [4] 자료(DTO/자바)타입을 JS(JSON)타입으로 변환
 		ObjectMapper mapper = new ObjectMapper();
 		String jsonResult = mapper.writeValueAsString(result);
@@ -92,7 +94,7 @@ public class InfoController extends HttpServlet {
 		if(object != null) {
 			int loginMno = (Integer)object;
 			memberDto.setMno(loginMno);
-			result = MemberDao.getInstance().update(memberDto);
+			result = RealMemberDao.getInstance().update(memberDto);
 		}
 		//[4] 자료(DTO/자바)타입을 JS(JSON)타입으로 변환
 		//[5] HTTP 응답의 header body로 application/json으로 응답/반환

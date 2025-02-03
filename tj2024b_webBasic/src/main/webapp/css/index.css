@@ -1,0 +1,33 @@
+@charset "UTF-8";
+
+/* 눈누 폰트 */
+@font-face {
+    font-family: 'SBAggroB';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 전체 폰트 적용 */
+* {
+	font-family : 'SBAggroB';
+}
+
+.header_logo {
+	width : 50px;
+}
+
+.header_profile {
+	margin-right : 10px;
+	padding : 1px;
+	/* 자동 원본 비율 맞춤 */
+	object-fit : contain;
+	/* 비율을 유지, 사이즈 잘림 */
+	/*object-fit : cover;*/
+	/* 사이즈 고정 */
+	/*object-fit : none;*/
+	width : 30px;
+	height : 30px;
+	border : solid 1px #e8e8e8;
+	border-radius : 30px;
+}
