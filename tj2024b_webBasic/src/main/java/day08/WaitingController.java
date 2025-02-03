@@ -17,7 +17,7 @@ import jakarta.servlet.http.HttpSession;
 @WebServlet("/day08/waiting")
 public class WaitingController extends HttpServlet {
 	
-	private ArrayList<HashMap<String, Object>> dto = new ArrayList<>();
+	//private ArrayList<HashMap<String, Object>> dto = new ArrayList<>();
 	
 	/** 대기명단 등록 */
 	@Override
@@ -25,22 +25,25 @@ public class WaitingController extends HttpServlet {
 		System.out.println(">> WaitingController 대기명단 등록(doPost) 실행");
 		
 		// {"phone" : "010-1111-1111", "people" : 3}
-		boolean state = false;
+		int wno = 0;
 		ObjectMapper mapper = new ObjectMapper();
 		HashMap<String, Object> result = mapper.readValue(req.getReader(), HashMap.class);
-		result.put("wno", dto.size()+1);
-		System.out.println(">> result : " + result);
+		//System.out.println(">> result : " + result);
 		resp.setContentType("application/json");
+		ArrayList<HashMap<String, Object>> dto = null;
 		if(!result.isEmpty()) {
-			if(result.get("phone") != null) {				
-				dto.add(result);
+			if(result.get("phone") != null) {
 				HttpSession session = req.getSession();
+				Object object = session.getAttribute("dto");
+				dto = (ArrayList<HashMap<String, Object>>)object;
+				result.put("wno", dto.size()+1);
+				dto.add(result);
 				session.setAttribute("dto", dto);
-				state = true;
+				wno = Integer.parseInt(result.get("wno").toString());
 			}
 		}
 		System.out.println(">> dto : " + dto);	
-		resp.getWriter().print(state);
+		resp.getWriter().print(wno);
 		
 		System.out.println(">> WaitingController 대기명단 등록(doPost) 끝");
 	}
@@ -50,8 +53,12 @@ public class WaitingController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println(">> WaitingController 대기명단 천체 출력(doGet) 실행");
 		
-		ObjectMapper mapper = new ObjectMapper();
 		HttpSession session = req.getSession();
+		if(session.isNew()) {
+			ArrayList<HashMap<String, Object>> dto = new ArrayList<>();
+			session.setAttribute("dto", dto);
+		}
+		ObjectMapper mapper = new ObjectMapper();
 		Object object = session.getAttribute("dto");
 		String jsonResult = mapper.writeValueAsString(object);
 		System.out.println(">> jsonResult : " + jsonResult);
@@ -74,12 +81,12 @@ public class WaitingController extends HttpServlet {
 		if(!result.isEmpty()) {
 			HttpSession session = req.getSession();
 			Object object = session.getAttribute("dto");
-			ArrayList<HashMap<String, Object>> resultDto = (ArrayList<HashMap<String, Object>>)object;
-			for(int index = 0; index < resultDto.size(); index++) {
-				HashMap<String, Object> temp = resultDto.get(index);
+			ArrayList<HashMap<String, Object>> dto = (ArrayList<HashMap<String, Object>>)object;
+			for(int index = 0; index < dto.size(); index++) {
+				HashMap<String, Object> temp = dto.get(index);
 				if(temp.get("wno").equals(result.get("wno"))) {
 					temp.put("people", result.get("people"));
-					System.out.println(">> 변경 후 : " + temp);
+					session.setAttribute("dto", dto);
 					state = true;
 					break;
 				}
@@ -96,14 +103,14 @@ public class WaitingController extends HttpServlet {
 		System.out.println(">> WaitingController 특정 대기명단 삭제(doDelete) 실행");
 		
 		boolean state = false;
-		String phone = req.getParameter("phone");
+		int wno = Integer.parseInt(req.getParameter("wno"));
 		resp.setContentType("application/json");
 		HttpSession session = req.getSession();
 		Object object = session.getAttribute("dto");
-		ArrayList<HashMap<String, Object>> result = (ArrayList<HashMap<String, Object>>)object;
-		for(int index = 0; index < result.size(); index++) {
-			HashMap<String, Object> temp = result.get(index);
-			if(temp.get("phone").equals(phone)) {
+		ArrayList<HashMap<String, Object>> dto = (ArrayList<HashMap<String, Object>>)object;
+		for(int index = 0; index < dto.size(); index++) {
+			HashMap<String, Object> temp = dto.get(index);
+			if(Integer.parseInt(temp.get("wno").toString()) == wno) {
 				dto.remove(index);
 				state = true;
 				break;
