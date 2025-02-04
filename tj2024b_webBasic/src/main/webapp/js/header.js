@@ -25,12 +25,16 @@ let getLoginInfo = () => {
 		}
 		else {
 			console.log("로그인 상태");
-			html += `
-			<li class="nav-item">
-				<a class="nav-link"><img class = "header_profile" src = "/tj2024b_webBasic/upload/${data.mimg}"/>${data.mname} 님</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" style = "cursor : pointer;" onclick = "onLogOut()">로그아웃</a>
+			html +=
+			`
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle custom_dropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+					<img class = "header_profile" src = "/tj2024b_webBasic/upload/${data.mimg}"/>${data.mname} 님
+				</a>
+				<ul class="dropdown-menu">
+				<li><a class="nav-link" style = "cursor : pointer;" href = "/tj2024b_webBasic/member/info.jsp">마이페이지</a></li>
+				<li><a class="nav-link" style = "cursor : pointer;" onclick = "onLogOut()">로그아웃</a></li>
+				</ul>
 			</li>
 			`;
 		}

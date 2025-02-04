@@ -1,6 +1,8 @@
 package web.controller.member;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -13,6 +15,7 @@ import jakarta.servlet.http.HttpSession;
 import web.model.dao.MemberDao;
 import web.model.dao.RealMemberDao;
 import web.model.dto.MemberDto;
+import web.model.dto.PointDto;
 
 //[1] HTTP 요청의 header body 자료(JSON)를 자바(DTO)로 받는다.
 //[2] 데이터 유효성 검사
@@ -38,6 +41,10 @@ public class InfoController extends HttpServlet {
 		if(object != null) {			
 			int loginMno = (Integer)object;
 			result = MemberDao.getInstance().myInfo(loginMno);
+			// 추가
+			Integer mpoint = MemberDao.getInstance().myPoint(loginMno);
+			result.setMpoint(mpoint.toString());
+			// 추가
 		}
 		System.out.println("result : " + result);
 		// [4] 자료(DTO/자바)타입을 JS(JSON)타입으로 변환

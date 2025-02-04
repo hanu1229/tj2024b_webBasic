@@ -1,0 +1,23 @@
+.mimgbox {
+	text-align : center;
+}
+
+.mimg {
+	width : 200px;
+	height : 200px;
+	border : solid 1px #e8e8e8;
+	border-radius : 30px;
+	padding : 5px;
+	object-fit : cover; 
+}
+.point_table {
+	border : solid 1px black;
+}
+.point_th {
+	border : solid 1px black;
+	text-align : center;
+}
+.point_td {
+	border : solid 1px black;
+	text-align : center;
+}

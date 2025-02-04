@@ -3,10 +3,12 @@ package web.model.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import web.model.dto.MemberDto;
+import web.model.dto.PointDto;
 
 
 // @Getter : 클래스내 모든 멤버변수에 getter 적용
@@ -129,6 +131,117 @@ public class MemberDao extends Dao {
 			System.out.println(e);
 		}
 		return false;
+	}
+	
+	/**
+	 * 회원가입 포인트 지급 SQL 처리 메소드 
+	*/
+	public boolean joinPoint(PointDto pointDto, String mname) {
+		try {
+			String sql = "select * from member where mname = ?;";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, mname);
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()) {
+				pointDto.setMno(rs.getInt("mno"));
+			}
+			sql = "insert into point_log(title, point, mno) values(?, ?, ?);";
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, pointDto.getTitle());
+			ps.setInt(2, pointDto.getPoint());
+			ps.setInt(3, pointDto.getMno());
+			int count = ps.executeUpdate();
+			if(count == 1) { return true; }
+		} catch(SQLException e) {
+			System.out.println(e);
+		}
+		return false;
+	}
+	
+	// 추가
+	/**
+	 * 포인트 지급 SQL 처리 메소드 
+	*/
+	public boolean awardPoint(PointDto pointDto) {
+		try {
+			String sql = "insert into point_log(title, point, mno) values(?, ?, ?);";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, pointDto.getTitle());
+			ps.setInt(2, pointDto.getPoint());
+			ps.setInt(3, pointDto.getMno());
+			int count = ps.executeUpdate();
+			if(count == 1) { return true; }
+		} catch(SQLException e) {
+			System.out.println(e);
+		}
+		return false;
+	}
+	
+	/**
+	 * 포인트 지급 날짜 SQL 처리 메소드<p>
+	 * 로그인한 사용자 포인트 전체 내역 조회 SQL 처리 메소드 
+	*/
+	public ArrayList<String> checkDate(int loginMno) {
+		ArrayList<String> result = new ArrayList<>();
+		try {
+			String sql = "select * from point_log where mno = ? and title = ?;";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, loginMno);
+			ps.setString(2, "로그인");
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				String str = rs.getString("date");
+				result.add(str);
+			}
+		} catch(SQLException e) {
+			System.out.println(e);
+		}
+		return result;
+	}
+	
+	/**
+	 * 로그인한 사용자 포인트 전체 내역 조회 SQL 처리 메소드 
+	*/
+	public ArrayList<PointDto> printPointLog(int loginMno) {
+		ArrayList<PointDto> result = new ArrayList<>();
+		
+		try {
+			String sql = "select * from point_log where mno = ?;";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, loginMno);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				PointDto pointDto = new PointDto();
+				pointDto.setPno(rs.getInt("pno"));
+				pointDto.setTitle(rs.getString("title"));
+				pointDto.setPoint(rs.getInt("point"));
+				pointDto.setDate(rs.getString("date"));
+				result.add(pointDto);
+			}
+		} catch(SQLException e) {
+			System.out.println(e);
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 현재 내 포인트 조회 SQL 처리 메소드 
+	*/
+	public int myPoint(int mno) {
+		int mpoint = 0;
+		try {
+			String sql = "select sum(point) as mpoint from point_log where mno = ?;";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, mno);
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()) {
+				mpoint = rs.getInt("mpoint");
+			}
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
+		return mpoint;
 	}
 	
 }

@@ -78,9 +78,30 @@ insert into reply(rcontent, mno, bno) values ('하하하 댓글3', 4, 5);
 insert into reply(rcontent, mno, bno) values ('하하하 댓글4', 5, 5);
 insert into reply(rcontent, mno, bno) values ('하하하 댓글5', 1, 4);
 
+create table point_log(
+	pno int unsigned auto_increment,
+    title varchar(255) not null,
+    point int not null,
+    date datetime default now(),
+    mno int unsigned not null,
+    constraint primary key(pno),
+    constraint foreign key(mno) references member(mno) on update cascade on delete cascade
+);
+
+insert into point_log(title, point, date, mno) values('회원가입축하', 100, '2025-02-03 14:00:00', 1);
+insert into point_log(title, point, date, mno) values('회원가입축하', 100, '2025-02-03 14:00:00', 2);
+insert into point_log(title, point, date, mno) values('회원가입축하', 100, '2025-02-03 14:00:00', 3);
+insert into point_log(title, point, date, mno) values('회원가입축하', 100, '2025-02-03 14:00:00', 4);
+insert into point_log(title, point, date, mno) values('회원가입축하', 100, '2025-02-03 14:00:00', 5);
+insert into point_log(title, point, date, mno) values('로그인', 1, '2025-02-03 15:10:00', 1);
+insert into point_log(title, point, date, mno) values('게시물작성', -5, '2025-02-03 16:10:00', 1);
+
 -- delete from member where mid = 'test123';
 
 select * from member;
 select * from category;
 select * from board;
 select * from reply;
+select * from point_log;
+
+select sum(point) as mpoint from point_log where mno = 1;

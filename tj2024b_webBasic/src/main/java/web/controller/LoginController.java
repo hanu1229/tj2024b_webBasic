@@ -1,6 +1,8 @@
 package web.controller;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -10,8 +12,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import web.model.dao.RealMemberDao;
+import web.model.dao.MemberDao;
 import web.model.dto.MemberDto;
+import web.model.dto.PointDto;
 
 // [1] HTTP 요청의 header body 자료(JSON)를 자바(DTO)로 받는다.
 // [2] 데이터 유효성 검사
@@ -34,7 +37,7 @@ public class LoginController extends HttpServlet{
 		// [2] 데이터 유효성 검사
 		// [3] DAO에게 데이터 전달하고 응답 받기
 		// 0이면 로그인 실패, 0초과이면 로그인 성공한 회원번호
-		int loginMno = RealMemberDao.getInstance().login(memberDto);
+		int loginMno = MemberDao.getInstance().login(memberDto);
 		// 만약 로그인을 성공 했다면 세션 처리
 		if(loginMno > 0) {
 			// 톰캣 서버의 저장소/메모리
@@ -43,6 +46,22 @@ public class LoginController extends HttpServlet{
 			// 현재 로그인 성공한 회원번호를 세선 속성에 등록
 			// 추후에 로그인 인증에서 사용될 예정
 			session.setAttribute("loginMno", loginMno);
+			
+			// 추가
+			boolean state = checkDate(loginMno);
+			if(!state) {				
+				PointDto pointDto = new PointDto();
+				pointDto.setMno(loginMno);
+				pointDto.setTitle("로그인");
+				pointDto.setPoint(1);
+				boolean result = MemberDao.getInstance().awardPoint(pointDto);
+				if(result) {
+					session.setAttribute("loginPoint", true);
+				}
+			} else {
+				session.setAttribute("loginPoint", false);
+			}
+			
 			// 세션 객체의 최대 활성화 유지시간/생명주기
 			session.setMaxInactiveInterval(60*10);
 		}
@@ -52,6 +71,32 @@ public class LoginController extends HttpServlet{
 		resp.getWriter().print(loginMno);
 		
 		System.out.println(">> LoginController doPost 종료");
+	}
+	
+	/**
+	 * 날짜 확인 메소드 
+	*/
+	public boolean checkDate(int loginMno) {
+		
+		LocalDateTime currentTime = LocalDateTime.now();
+		boolean state = false;
+		int year = currentTime.getYear();
+		int month = currentTime.getMonthValue();
+		int day = currentTime.getDayOfMonth();
+		String smonth = month < 10 ? "0" + month : "" + month;
+		String sday = day < 10 ? "0" + day : "" + day;
+		String date = year + "-" + smonth + "-" + sday;
+		System.out.println(date);
+		ArrayList<String> result = MemberDao.getInstance().checkDate(loginMno);
+		for(int index = 0; index < result.size(); index ++) {
+			String str = result.get(index);
+			String[] temp = str.split(" ");
+			if(temp[0].equals(date)) {
+				state = true;
+				break;
+			}
+		}
+		return state;
 	}
 	
 	/**
