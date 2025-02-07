@@ -28,18 +28,19 @@ public class BoardController extends HttpServlet {
 		BoardDto boardDto = mapper.readValue(req.getReader(), BoardDto.class);
 		HttpSession session = req.getSession();
 		Object object = session.getAttribute("loginMno");
+		boolean result = false;
 		if(object != null) {
 			//테스트용 회원번호
 			//int loginMno = 1;
 			int loginMno = (Integer)object;
 			boardDto.setMno(loginMno);
-			boolean result = BoardDao.getInstance().write(boardDto);	
-			resp.setContentType("application/json");
-			resp.getWriter().print(result);
+			result = BoardDao.getInstance().write(boardDto);	
 			System.out.println(">> 게시물 작성 성공");
 		} else {
 			System.out.println(">> 게시물 작성 실패");
 		}
+		resp.setContentType("application/json");
+		resp.getWriter().print(result);
 		
 		System.out.println(">> BoardController 게시물쓰기(doPost) 종료");
 	}
@@ -49,8 +50,9 @@ public class BoardController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println(">> BoardController 게시물전체조회(doGet) 실행");
 		
+		int cno = Integer.parseInt(req.getParameter("cno"));
 		ObjectMapper mapper = new ObjectMapper();
-		ArrayList<BoardDto> result = BoardDao.getInstance().findAll();
+		ArrayList<BoardDto> result = BoardDao.getInstance().findAll(cno);
 		String jsonResult = mapper.writeValueAsString(result);
 		resp.setContentType("application/json");
 		resp.getWriter().print(jsonResult);

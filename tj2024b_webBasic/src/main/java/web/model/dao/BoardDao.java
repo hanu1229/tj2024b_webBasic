@@ -37,14 +37,16 @@ public class BoardDao extends Dao {
 	}
 	
 	/** 게시물 전체 조회 SQL */
-	public ArrayList<BoardDto> findAll() {
+	public ArrayList<BoardDto> findAll(int cno) {
 		ArrayList<BoardDto> result = new ArrayList<>();
 		try {
 			// desc 내림차순 asc 오름차순 --> order by 뒤에 작성
 			String sql = "select b.bno, b.btitle, b.bcontent, b.bview, b.bdate, b.cno, b.mno, m.mid from board as b "
 					+ "inner join member as m on b.mno = m.mno "
-					+ "order by b.bno;";
+					+ "where cno = ? "
+					+ "order by b.bno desc;";
 			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, cno);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				BoardDto boardDto = new BoardDto();

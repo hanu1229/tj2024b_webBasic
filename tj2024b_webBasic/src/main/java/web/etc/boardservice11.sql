@@ -186,3 +186,7 @@ select * from board limit 10, 5;
 select * from board limit 15, 5;
 # 5페이지 : 20 ~ 24
 select * from board limit 20, 5;
+# 뉴스 카테고리의 1페이지
+select * from board where cno = 1 limit 0, 5;
+# 이벤트 카테고리 2페이지
+select * from board where cno = 2 limit 5, 5;
