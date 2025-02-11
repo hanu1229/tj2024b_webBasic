@@ -25,3 +25,63 @@ let findByBno = () => {
 	
 }
 findByBno();
+
+/** 댓글 쓰기 */
+let onReplyWrite = () => {
+	
+	// 입력받은 값 가져오기
+	let rcontentinput = document.querySelector(".rcontentinput");
+	let rcontent = rcontentinput.value;
+	let bno = new URL(location.href).searchParams.get("bno");
+	let obj = {rcontent : rcontent, bno : bno};
+	const option = {
+		method : "POST",
+		headers : {"Content-Type" : "application/json"},
+		body : JSON.stringify(obj)
+	};
+	fetch(`/tj2024b_webBasic/board/reply`, option)
+	.then(response => response.json())
+	.then(data => {
+		if(data == true) {			
+			alert("댓글쓰기 완료");
+			replyfindAll();
+		} else {
+			alert("댓글쓰기 실패 : 로그인 해주세요");
+		}
+	})
+	.catch(error => { console.log(error); });
+	
+	
+}
+
+/** 현재 게시물의 댓글 전체 조회 */
+let replyfindAll = () => {
+	
+	let bno = new URL(location.href).searchParams.get("bno");
+	const option = {method : "GET"};
+	fetch(`/tj2024b_webBasic/board/reply?bno=${bno}`, option)
+	.then(response => response.json())
+	.then(data => {
+		
+		let replybox = document.querySelector(".replybox");
+		let html = ``;
+		
+		data.forEach(reply => {
+			html += `
+			<div class="card mt-3">
+			  <div class="card-header">
+			  	<img src = "/tj2024b_webBasic/upload/${reply.mimg}" style = "width : 30px;"/>
+			    ${reply.mid}
+			  </div>
+			  <div class="card-body">
+			  	${reply.rcontent}
+			  </div>
+			</div>
+			`;
+		});
+		replybox.innerHTML = html;
+	})
+	.catch(error => { console.log(error); });
+	
+}
+replyfindAll();

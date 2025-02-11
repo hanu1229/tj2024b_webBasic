@@ -53,7 +53,7 @@ public class InfoController extends HttpServlet {
 		// [5] HTTP 응답의 header body로 application/json으로 응답/반환
 		resp.setContentType("application/json");
 		resp.getWriter().print(jsonResult);
-		System.out.println(">> InfoController doGet 끝");
+		System.out.println(">> InfoController doGet 종료\n");
 	}
 	
 	/**
@@ -80,7 +80,7 @@ public class InfoController extends HttpServlet {
 		//[5] HTTP 응답의 header body로 application/json으로 응답/반환
 		resp.setContentType("application/json");
 		resp.getWriter().print(result);
-		System.out.println(">> InfoController doDelete 끝");
+		System.out.println(">> InfoController doDelete 종료\n");
 	}
 	
 	/**

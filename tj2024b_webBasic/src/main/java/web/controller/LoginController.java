@@ -70,7 +70,7 @@ public class LoginController extends HttpServlet{
 		resp.setContentType("application/json");
 		resp.getWriter().print(loginMno);
 		
-		System.out.println(">> LoginController doPost 종료");
+		System.out.println(">> LoginController doPost 종료\n");
 	}
 	
 	/**
@@ -123,6 +123,6 @@ public class LoginController extends HttpServlet{
 		resp.setContentType("application/json");
 		resp.getWriter().print(logOut);
 		
-		System.out.println(">> LoginController doDelete 종료");
+		System.out.println(">> LoginController doDelete 종료\n");
 	}
 }

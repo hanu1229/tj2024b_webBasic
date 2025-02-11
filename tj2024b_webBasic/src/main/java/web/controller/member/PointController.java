@@ -33,6 +33,6 @@ public class PointController extends HttpServlet {
 		resp.setContentType("appliction/json");
 		resp.getWriter().print(jsonResult);
 		
-		System.out.println(">> PointController doGet 끝");
+		System.out.println(">> PointController doGet 종료\n");
 	}
 }

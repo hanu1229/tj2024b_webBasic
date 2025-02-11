@@ -26,6 +26,13 @@
 				
 				</tbody>
 			</table>
+			
+			<!-- 부트스트랩에서 제공하는 페이지네이션 -->
+			<nav aria-label="Page navigation example">
+			  <ul class="pagination pagebtnbox">
+			  	
+			  </ul>
+			</nav>
 		</div>
 		
 		<jsp:include page = "/footer.jsp"></jsp:include>

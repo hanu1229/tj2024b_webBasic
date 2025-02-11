@@ -33,7 +33,7 @@ public class RealSignUpController extends HttpServlet {
 		resp.setContentType("application/json");
 		resp.getWriter().print(result);
 	
-		
+		System.out.println(">> SignUpController doPost 종료\n");
 	}
 	
 }
