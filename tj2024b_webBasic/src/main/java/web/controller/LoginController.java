@@ -86,7 +86,7 @@ public class LoginController extends HttpServlet{
 		String smonth = month < 10 ? "0" + month : "" + month;
 		String sday = day < 10 ? "0" + day : "" + day;
 		String date = year + "-" + smonth + "-" + sday;
-		System.out.println(date);
+		System.out.println("date : " + date);
 		ArrayList<String> result = MemberDao.getInstance().checkDate(loginMno);
 		for(int index = 0; index < result.size(); index ++) {
 			String str = result.get(index);

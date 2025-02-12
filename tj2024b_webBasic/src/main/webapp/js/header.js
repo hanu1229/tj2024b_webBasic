@@ -2,6 +2,7 @@
 
 
 console.log("header.js open");
+clientWebSocket = new WebSocket(`ws://localhost:8080/tj2024b_webBasic/websocket/toast`);
 /** 로그인 정보 요청 함수 */
 let getLoginInfo = () => {
 	let loginmenu = document.querySelector("#loginmenu");
@@ -39,10 +40,12 @@ let getLoginInfo = () => {
 			`;
 		}
 		loginmenu.innerHTML = html;
+		
 	})
 	.catch(error => { console.log(error); });
 	
 }
+
 // JS가 열렸을때 최초 1번 실행
 getLoginInfo();
 
@@ -59,5 +62,21 @@ let onLogOut = () => {
 		}
 	})
 	.catch(error => { console.log(error); });
+	
+}
+
+clientWebSocket.onmessage = (event) => {
+	
+	console.log(`event.data : ${event.data}`);
+	//alert(event);
+	let toast = document.querySelector("#show-toast");
+	toast.innerHTML = `
+	<div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+		<div class="toast-header">
+			<strong class="me-auto">${event.data}</strong>
+			<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+		</div>
+	</div>
+	`;
 	
 }
